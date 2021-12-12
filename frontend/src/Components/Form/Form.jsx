@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {FetchResults} from "../../services/requests";
+import {useLocalStorage} from "../../useLocalStorage";
 
 const Form = () => {
-    const [proteinName, setProteinName] = useState('');
+    // const [proteinName, setProteinName] = useState('');
+
+    const handleChange = ({ target }) => setProteinName(target.value);
+
+    const handleClick = () => {
+        FetchResults(proteinName);
+    };
+    const [proteinName, setProteinName] = useLocalStorage("proteinName", "");
 
     return (
         <form>
-            <input type="text" value={proteinName} onChange={({ target }) => setProteinName(target.value)} placeholder="Protein sequence"/>
-            <button>Find protein</button>
+            {/*<input type="text" value={proteinName} onChange={({ target }) => handleClick(target)}*/}
+            <input type="text" value={proteinName} onChange={handleChange}
+                   placeholder="Protein sequence"/>
+            <button onClick={handleClick}>Find protein</button>
         </form>
     );
 };
