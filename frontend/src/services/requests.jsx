@@ -22,22 +22,22 @@ export const FetchResults = (proteinName) => {
 
 export const FetchTestResults = () => {
     // const [results, setResults] = useState([]);
-    const [results, setResults] = useLocalStorage("results", []);
+    // const [results, setResults] = useLocalStorage("results", []);
 const json = [{'proteinName': 'protein 1', 'proteinLocation': 'protein 1 location'}, {'proteinName': 'protein 2', 'proteinLocation': 'protein 2 location'}];
-
-    useEffect(() => {
-        fetch('http://localhost:8000/api/sequence')
-            .then(res => res.json())
-            .then(json => {
-                console.log(json)
-                const results = json.data.map(protein => ({
-                    // proteinId: protein.id,
-                    proteinName: protein.proteinName,
-                    proteinLocation: protein.proteinLocation
-                }));
-                setResults(results);
-            });
-    });
-    setResults(json)
-    return results;
+return json
+//     useEffect(() => {
+//         fetch('http://localhost:8000/api/sequence')
+//             .then(res => res.json())
+//             .then(json => {
+//                 console.log(json)
+//                 const results = json.data.map(protein => ({
+//                     // proteinId: protein.id,
+//                     proteinName: protein.proteinName,
+//                     proteinLocation: protein.proteinLocation
+//                 }));
+//                 setResults(results);
+//             });
+//     });
+//     // setResults(json)
+//     return results;
 };

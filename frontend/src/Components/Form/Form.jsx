@@ -4,13 +4,19 @@ import {useLocalStorage} from "../../useLocalStorage";
 
 const Form = () => {
     const [proteinName, setProteinName] = useState('');
-    // const [proteinName, setProteinName] = useLocalStorage("proteinName", "");
+    const [results, setResults] = useLocalStorage("results", []);
 
-    const handleChange = ({ target }) => setProteinName(target.value);
+    // useEffect(() => {
+    //     const res = FetchTestResults()
+    //     setResults(res)
+    // }, []);
+    const handleChange = ({target}) => setProteinName(target.value);
 
     const handleClick = () => {
         // FetchResults(proteinName);
-        FetchTestResults();
+        // FetchTestResults()
+        const res = FetchTestResults()
+        setResults(res)
     };
 
     return (
