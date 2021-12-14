@@ -15,9 +15,13 @@ class DetailSequence(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SequenceSerializer
 
 def DetailResult(request):
-    seq = Seq('ACGT')
-    translated = seq.reverse_complement().transcribe()
+    seq = Seq("CATGTAGACTAG")
+    translated = seq.translate()
+    transcribed = seq.reverse_complement().transcribe()
 
-    data = [{'proteinName': 'protein 1', 'proteinLocation': 'protein 1 location'},{'proteinName': translated, 'proteinLocation': seq}]
+    data = [{'proteinName': 'protein 1', 'proteinLocation': 'protein 1 location'},
+            {'proteinName': translated, 'proteinLocation': seq},
+            {'proteinName': transcribed, 'proteinLocation': seq},
+            ]
     print(data)
     return HttpResponse(data, content_type='application/json')

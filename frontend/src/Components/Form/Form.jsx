@@ -1,32 +1,83 @@
 import React, {useEffect, useState} from 'react';
-import {FetchResults, FetchTestResults} from "../../services/requests";
+import {FetchDBResults, FetchResults, FetchTestResults} from "../../services/requests";
 import {useLocalStorage} from "../../useLocalStorage";
 
 const Form = () => {
     const [proteinName, setProteinName] = useState('');
     const [results, setResults] = useLocalStorage("results", []);
 
+    useEffect(() => {
+    fetch('http://localhost:8000/api',{
+        'methods':'GET',
+        headers : {
+            'Content-Type':'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(json => {
+            const results = json.map(protein => ({
+                proteinId: protein.id,
+                proteinName: protein.title,
+                proteinLocation: protein.description
+            }));
+            setResults(results);
+        });
+}, [proteinName]);
     // useEffect(() => {
-    //     const res = FetchTestResults()
-    //     setResults(res)
-    // }, []);
-    const handleChange = ({target}) => setProteinName(target.value);
+    //     fetch(`http://localhost:8000/api/protein`, {
+    //     'methods':'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(json => {
+    //             const proteins = json.map(protein => ({
+    //                 proteinId: protein.id,
+    //                 proteinName: protein.proteinName,
+    //                 proteinLocation: protein.proteinLocation
+    //             }));
+    //             setResults(proteins);
+    //         });
+    // }, [proteinName]);
 
-    const handleClick = () => {
-        // FetchResults(proteinName);
-        // FetchTestResults()
-        const res = FetchTestResults()
-        setResults(res)
-    };
+const handleChange = ({target}) => setProteinName(target.value);
 
-    return (
-        <form>
-            {/*<input type="text" value={proteinName} onChange={({ target }) => handleClick(target)}*/}
-            <input type="text" value={proteinName} onChange={handleChange}
-                   placeholder="Protein sequence"/>
-            <button onClick={handleClick}>Find protein</button>
-        </form>
-    );
+const HandleClick = () => {
+    // FetchResults(proteinName);
+    // FetchTestResults(proteinName)
+    // const res = FetchDBResults()
+    // const res = FetchTestResults()
+    // setResults(res)
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/api',{
+    //         'methods':'GET',
+    //         headers : {
+    //             'Content-Type':'application/json'
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(json => {
+    //             console.log(json)
+    //             const results = json.map(protein => ({
+    //                 proteinId: protein.id,
+    //                 proteinName: protein.title,
+    //                 proteinLocation: protein.description
+    //             }));
+    //             setResults(results);
+    //         });
+    // }, [proteinName]);
 };
+
+return (
+    <form>
+        {/*<input type="text" value={proteinName} onChange={({ target }) => handleClick(target)}*/}
+        <input type="text" value={proteinName} onChange={handleChange}
+               placeholder="Protein sequence"/>
+        <button onClick={HandleClick}>Find protein</button>
+    </form>
+);
+}
+;
 
 export default Form;
