@@ -4,6 +4,8 @@ from .models import Sequence, Result
 from .serializers import SequenceSerializer, ResultSerializer
 from django.http import HttpResponse
 from Bio.Seq import Seq
+from Bio import SeqIO
+import os
 
 class ListSequence(generics.ListCreateAPIView):
     queryset = Sequence.objects.all()
@@ -28,3 +30,31 @@ def DetailResult(request):
 
     print(data)
     return HttpResponse(data, content_type='application/json')
+
+def readFastaFiles(request):
+#  read all files in organisms folder
+    for filename in os.listdir('organisms')
+        f = os.path.join('organisms', filename)
+        if os.path.isfile(f):
+                record = SeqIO.read("../{f}", "fasta")
+
+    record = SeqIO.read("../organisms/NC_000852.5.fasta", "fasta")
+    genome = record.seq
+#     convert request.sequence str to uppercase? str.upper()
+
+    foundSeqIdx = genome.find(request.sequence) # 1370
+    endIdx = foundSeqIdx + len(request.sequence)
+    formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
+    organismName = record.name
+    proteinName =
+
+# ID: NC_000852.5
+# Name: NC_000852.5
+# Description: NC_000852.5 Paramecium bursaria Chlorella virus 1, complete genome
+# Number of features: 0
+# Seq('GGGAGAACCAGGTGGGATTGACAGTGGTAAATGTGTTGACCACGAGTAAAAACA...TTT')
+# filter Seq object for sequence
+
+# find index of start of substr (sequence)
+# that length + length of sequnce gives start and end of location
+#
