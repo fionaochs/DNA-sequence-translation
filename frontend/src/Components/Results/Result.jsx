@@ -1,13 +1,14 @@
 import React from 'react';
 
 
-const Result = ({ proteinName, proteinLocation }) => {
+const Result = ({DNASequence, proteinName, organism, proteinLocation}) => {
 
     return (
         <div>
-            <h2>Protein</h2>
-            <h2>{proteinName}</h2>
-            <h2>{proteinLocation}</h2>
+            <h3>Found sequence '{DNASequence}'</h3>
+            <h3>in protein '{proteinName}'</h3>
+            <h3>in organism '{organism}'</h3>
+            <h3>at location {proteinLocation}</h3>
         </div>
     );
 };

@@ -15,7 +15,14 @@ const Form = () => {
     })
         .then(res => res.json())
         .then(json => {
-            const results = json.map(protein => ({
+            // const results = json.map(protein => ({
+            //     proteinId: protein.id,
+            //     DNASequence: protein.sequence,
+            //     proteinName: protein.proteinName,
+            //     proteinLocation: protein.proteinLocation,
+            //     organism: protein.organism
+            // }));
+                const results = json.map(protein => ({
                 proteinId: protein.id,
                 proteinName: protein.title,
                 proteinLocation: protein.description
