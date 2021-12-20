@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Sequence, Result
 from .serializers import SequenceSerializer, ResultSerializer
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from Bio.Seq import Seq
 from Bio import SeqIO
 import os
@@ -22,18 +22,18 @@ def DetailResult(request):
     transcribed = seq.reverse_complement().transcribe()
 
     data = [{'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1370..1380', 'organism': 'NC_000852'},
-            {'sequence':'CATGTAGACTAG', 'proteinName': translated, 'proteinLocation': '1353..2773', 'organism': 'NC_000852'},
-            {'sequence':'CATGTAGACTAG', 'proteinName': transcribed, 'proteinLocation': '26262..26267', 'organism': 'NC_000852'},
+            {'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1353..2773', 'organism': 'NC_000852'},
+            {'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '26262..26267', 'organism': 'NC_000852'},
             ]
 
 # Found  "cgcaggcgct" in protein "YP_004678872.1" in NC_000852.5 in location 1371->1380
 
     print(data)
-    return HttpResponse(data, content_type='application/json')
+    return JsonResponse(data, safe=False)
 
 def readFastaFiles(request):
 #  read all files in organisms folder
-    for filename in os.listdir('organisms')
+    for filename in os.listdir('organisms'):
         f = os.path.join('organisms', filename)
         if os.path.isfile(f):
                 record = SeqIO.read("../{f}", "fasta")
@@ -46,7 +46,7 @@ def readFastaFiles(request):
     endIdx = foundSeqIdx + len(request.sequence)
     formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
     organismName = record.name
-    proteinName =
+    proteinName = request.sequence.translate()
 
 # ID: NC_000852.5
 # Name: NC_000852.5

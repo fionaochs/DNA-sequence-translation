@@ -7,7 +7,7 @@ const Form = () => {
     const [results, setResults] = useLocalStorage("results", []);
 
     useEffect(() => {
-    fetch('http://localhost:8000/api',{
+    fetch('http://localhost:8000/api/protein',{
         'methods':'GET',
         headers : {
             'Content-Type':'application/json'
@@ -15,18 +15,18 @@ const Form = () => {
     })
         .then(res => res.json())
         .then(json => {
-            // const results = json.map(protein => ({
-            //     proteinId: protein.id,
-            //     DNASequence: protein.sequence,
-            //     proteinName: protein.proteinName,
-            //     proteinLocation: protein.proteinLocation,
-            //     organism: protein.organism
-            // }));
-                const results = json.map(protein => ({
+            const results = json.map(protein => ({
                 proteinId: protein.id,
-                proteinName: protein.title,
-                proteinLocation: protein.description
+                DNASequence: protein.sequence,
+                proteinName: protein.proteinName,
+                proteinLocation: protein.proteinLocation,
+                organism: protein.organism
             }));
+            //     const results = json.map(protein => ({
+            //     proteinId: protein.id,
+            //     proteinName: protein.title,
+            //     proteinLocation: protein.description
+            // }));
             setResults(results);
         });
 }, [proteinName]);
