@@ -16,7 +16,7 @@ class DetailSequence(generics.RetrieveUpdateDestroyAPIView):
     queryset = Sequence.objects.all()
     serializer_class = SequenceSerializer
 
-def DetailResult(request, sequence_id):
+def DetailResult(request):
     seq = Seq("CATGTAGACTAG")
     translated = seq.translate()
     transcribed = seq.reverse_complement().transcribe()
@@ -37,31 +37,44 @@ def ListFileSequences(request, sequence_id):
 #         f = os.path.join('organisms', filename)
 #         if os.path.isfile(f):
 #                 record = SeqIO.read("../{f}", "fasta")
+#     record = SeqIO.read("./NC_000852.5.fasta", "fasta")
 #  'CGCAGGCGCT'
     print(sequence_id)
-    seq = Seq(sequence_id)
-    record = SeqIO.read("./NC_000852.5.fasta", "fasta")
-    genome = record.seq
-#     convert request.sequence str to uppercase? str.upper()
+    files = ['NC_000852.fasta','NC_007346.fasta','NC_008724.fasta','NC_009899.fasta','NC_014637.fasta','NC_020104.fasta','NC_023423.fasta','NC_023640.fasta','NC_023719.fasta','NC_027867.fasta']
 
-    foundSeqIdx = genome.find(sequence_id) # 1370
-# check if sequence in file
-    if foundSeqIdx == -1:
-        formattedLocation = 'sequence not found'
-    else:
-        endIdx = foundSeqIdx + len(sequence_id)
-        formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
-    organismName = record.name
-    proteinName = seq.translate()
+#     def checkFilesForSequence(request, sequence_id):
+    for filename in files:
+        file = 'NC_000852.fasta'
+#         record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta", "fasta")
+        url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta"
+#         url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/{file}"
+        record = SeqIO.read(url, "fasta")
+        return calculateProtein(sequence_id, record)
 
+def calculateProtein(sequence_id, record):
+        upperCaseStrId = sequence_id.upper()
+        seq = Seq(sequence_id)
+        genome = record.seq
 
-    data = [{'id': 1,
-    'sequence': str(sequence_id),
-    'proteinName': str(proteinName),
-    'proteinLocation': str(formattedLocation),
-    'organism': str(organismName)}]
-    print(data)
-    return JsonResponse(data, safe=False)
+        foundSeqIdx = genome.find(sequence_id) # 1370
+        if foundSeqIdx != -1:
+            endIdx = foundSeqIdx + len(sequence_id)
+            formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
+            organismName = record.name
+            proteinName = seq.translate()
+        else:
+    #             formattedLocation = 'sequence not found'
+            ListFileSequences(sequence_id)
+
+        data = [{
+        'id': 1,
+        'sequence': str(sequence_id),
+        'proteinName': str(proteinName),
+        'proteinLocation': str(formattedLocation),
+        'organism': str(organismName)
+        }]
+        print(data)
+        return JsonResponse(data, safe=False)
 
 # ID: NC_000852.5
 # Name: NC_000852.5
@@ -69,7 +82,3 @@ def ListFileSequences(request, sequence_id):
 # Number of features: 0
 # Seq('GGGAGAACCAGGTGGGATTGACAGTGGTAAATGTGTTGACCACGAGTAAAAACA...TTT')
 # filter Seq object for sequence
-
-# find index of start of substr (sequence)
-# that length + length of sequnce gives start and end of location
-#
