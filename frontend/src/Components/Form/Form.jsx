@@ -6,30 +6,30 @@ const Form = () => {
     const [proteinName, setProteinName] = useState('');
     const [results, setResults] = useLocalStorage("results", []);
 
-    useEffect(() => {
-    fetch('http://localhost:8000/api/protein',{
-        'methods':'GET',
-        headers : {
-            'Content-Type':'application/json'
-        }
-    })
-        .then(res => res.json())
-        .then(json => {
-            const results = json.map(protein => ({
-                proteinId: protein.id,
-                DNASequence: protein.sequence,
-                proteinName: protein.proteinName,
-                proteinLocation: protein.proteinLocation,
-                organism: protein.organism
-            }));
-            //     const results = json.map(protein => ({
-            //     proteinId: protein.id,
-            //     proteinName: protein.title,
-            //     proteinLocation: protein.description
-            // }));
-            setResults(results);
-        });
-}, [proteinName]);
+//     useEffect(() => {
+//     fetch('http://localhost:8000/api/protein',{
+//         'methods':'GET',
+//         headers : {
+//             'Content-Type':'application/json'
+//         }
+//     })
+//         .then(res => res.json())
+//         .then(json => {
+//             const results = json.map(protein => ({
+//                 proteinId: protein.id,
+//                 DNASequence: protein.sequence,
+//                 proteinName: protein.proteinName,
+//                 proteinLocation: protein.proteinLocation,
+//                 organism: protein.organism
+//             }));
+//             //     const results = json.map(protein => ({
+//             //     proteinId: protein.id,
+//             //     proteinName: protein.title,
+//             //     proteinLocation: protein.description
+//             // }));
+//             setResults(results);
+//         });
+// }, [proteinName]);
     // useEffect(() => {
     //     fetch(`http://localhost:8000/api/protein`, {
     //     'methods':'GET',
@@ -53,27 +53,9 @@ const handleChange = ({target}) => setProteinName(target.value);
 const HandleClick = () => {
     // FetchResults(proteinName);
     // FetchTestResults(proteinName)
-    // const res = FetchDBResults()
+    const res = FetchDBResults()
     // const res = FetchTestResults()
     // setResults(res)
-    // useEffect(() => {
-    //     fetch('http://localhost:8000/api',{
-    //         'methods':'GET',
-    //         headers : {
-    //             'Content-Type':'application/json'
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(json => {
-    //             console.log(json)
-    //             const results = json.map(protein => ({
-    //                 proteinId: protein.id,
-    //                 proteinName: protein.title,
-    //                 proteinLocation: protein.description
-    //             }));
-    //             setResults(results);
-    //         });
-    // }, [proteinName]);
 };
 
 return (

@@ -22,34 +22,38 @@ export const FetchResults = (proteinName) => {
 };
 
 export const FetchDBResults = () => {
-    // const [results, setResults] = useState([]);
-    // const [results, setResults] = useLocalStorage("results", []);
+    const [results, setResults] = useLocalStorage("results", []);
 
     // [{"id":1,"title":"protein 1","description":"protein 1"},{"id":2,"title":"CATGTAGACTAG","description":"located at"}]
-    useEffect( () => {
-         // fetch('http://127.0.0.1:8000/api/')
-         fetch('http://localhost:8000/api/sequence')
+    useEffect(() => {
+        fetch('http://localhost:8000/api/protein',{
+            'methods':'GET',
+            headers : {
+                'Content-Type':'application/json'
+            }
+        })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
-                const proteins = json.map(protein => ({
+                const results = json.map(protein => ({
                     proteinId: protein.id,
-                    proteinName: protein.title,
-                    proteinLocation: protein.description
+                    DNASequence: protein.sequence,
+                    proteinName: protein.proteinName,
+                    proteinLocation: protein.proteinLocation,
+                    organism: protein.organism
                 }));
-                // setResults(proteins);
+                setResults(results);
             });
-    }, []);
-    // return results;
+    }, [results]);
+    return results;
 };
 
 export const FetchTestResults = (proteinName) => {
     // const [results, setResults] = useState([]);
     const [results, setResults] = useLocalStorage("results", []);
-const json = [{'proteinName': 'protein 1', 'proteinLocation': 'protein 1 location'},
-    {'proteinName': 'protein 2', 'proteinLocation': 'protein 2 location'},
-    {'proteinName': 'protein 3', 'proteinLocation': 'protein 3 location'}
-];
+// const json = [{'proteinName': 'protein 1', 'proteinLocation': 'protein 1 location'},
+//     {'proteinName': 'protein 2', 'proteinLocation': 'protein 2 location'},
+//     {'proteinName': 'protein 3', 'proteinLocation': 'protein 3 location'}
+// ];
 // return json
     useEffect(() => {
         fetch('http://localhost:8000/api',{

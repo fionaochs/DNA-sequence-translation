@@ -7,7 +7,7 @@ const Results = () => {
 
     const resultsList = results.map(result =>
         <ul key={result.id}>
-            <li key={result.proteinName}>
+            <li key={result.id}>
                 <Result {...result} />
             </li>
         </ul>

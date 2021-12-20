@@ -16,14 +16,14 @@ class DetailSequence(generics.RetrieveUpdateDestroyAPIView):
     queryset = Sequence.objects.all()
     serializer_class = SequenceSerializer
 
-def DetailResult(request):
+def DetailResult(request, sequence_id):
     seq = Seq("CATGTAGACTAG")
     translated = seq.translate()
     transcribed = seq.reverse_complement().transcribe()
 
-    data = [{'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1370..1380', 'organism': 'NC_000852'},
-            {'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1353..2773', 'organism': 'NC_000852'},
-            {'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '26262..26267', 'organism': 'NC_000852'},
+    data = [{'id': 1, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1370..1380', 'organism': 'NC_000852'},
+            {'id': 2, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1353..2773', 'organism': 'NC_000852'},
+            {'id': 3, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '26262..26267', 'organism': 'NC_000852'},
             ]
 
 # Found  "cgcaggcgct" in protein "YP_004678872.1" in NC_000852.5 in location 1371->1380
@@ -31,22 +31,37 @@ def DetailResult(request):
     print(data)
     return JsonResponse(data, safe=False)
 
-def readFastaFiles(request):
+def ListFileSequences(request, sequence_id):
 #  read all files in organisms folder
-    for filename in os.listdir('organisms'):
-        f = os.path.join('organisms', filename)
-        if os.path.isfile(f):
-                record = SeqIO.read("../{f}", "fasta")
-
-    record = SeqIO.read("../organisms/NC_000852.5.fasta", "fasta")
+#     for filename in os.listdir('organisms'):
+#         f = os.path.join('organisms', filename)
+#         if os.path.isfile(f):
+#                 record = SeqIO.read("../{f}", "fasta")
+#  'CGCAGGCGCT'
+    print(sequence_id)
+    seq = Seq(sequence_id)
+    record = SeqIO.read("./NC_000852.5.fasta", "fasta")
     genome = record.seq
 #     convert request.sequence str to uppercase? str.upper()
 
-    foundSeqIdx = genome.find(request.sequence) # 1370
-    endIdx = foundSeqIdx + len(request.sequence)
-    formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
+    foundSeqIdx = genome.find(sequence_id) # 1370
+# check if sequence in file
+    if foundSeqIdx == -1:
+        formattedLocation = 'sequence not found'
+    else:
+        endIdx = foundSeqIdx + len(sequence_id)
+        formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
     organismName = record.name
-    proteinName = request.sequence.translate()
+    proteinName = seq.translate()
+
+
+    data = [{'id': 1,
+    'sequence': str(sequence_id),
+    'proteinName': str(proteinName),
+    'proteinLocation': str(formattedLocation),
+    'organism': str(organismName)}]
+    print(data)
+    return JsonResponse(data, safe=False)
 
 # ID: NC_000852.5
 # Name: NC_000852.5
