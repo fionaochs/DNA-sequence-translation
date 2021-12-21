@@ -1,8 +1,9 @@
 .results {
     display: grid;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    /*justify-content: center;*/
+    /*flex-direction: row;*/
+    /*align-items: center;*/
 }
 
 h2 {

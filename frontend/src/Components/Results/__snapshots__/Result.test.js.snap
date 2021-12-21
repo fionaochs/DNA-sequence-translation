@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rating component renders Result 1`] = `
+<DocumentFragment>
+  <div>
+    <h3>
+      Found sequence
+    </h3>
+    <h3>
+      ''
+    </h3>
+    <h3>
+      with amino acid code ''
+    </h3>
+    <h3>
+      in organism ''
+    </h3>
+    <h3>
+      at location 
+    </h3>
+  </div>
+</DocumentFragment>
+`;

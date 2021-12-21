@@ -23,7 +23,7 @@ const Results = () => {
     } else {
         return (
             <div>
-                <h3>Sequence '{DNASequence}'</h3>
+                {/*<h3>Sequence '{DNASequence}'</h3>*/}
                 <h3>did not match any organisms on file</h3>
             </div>
 

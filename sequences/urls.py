@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.ListSequence.as_view()),
     path('sequence', views.DetailSequence.as_view()),
     path('sequence/<str:sequence_id>', views.ListFileSequences),
+    path('gb/<str:sequence_id>', views.genBankFile),
     path('protein', views.DetailResult, name="sequence"),
 ]
