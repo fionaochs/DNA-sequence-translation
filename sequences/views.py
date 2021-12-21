@@ -36,27 +36,38 @@ def ListFileSequences(request, sequence_id):
 #     for filename in os.listdir('organisms'):
 #         f = os.path.join('organisms', filename)
 #         if os.path.isfile(f):
-#                 record = SeqIO.read("../{f}", "fasta")
+#                 record = SeqIO.read("../{}".format(f), "fasta")
 #     record = SeqIO.read("./NC_000852.5.fasta", "fasta")
 #  'CGCAGGCGCT'
     print(sequence_id)
-    files = ['NC_000852.fasta','NC_007346.fasta','NC_008724.fasta','NC_009899.fasta','NC_014637.fasta','NC_020104.fasta','NC_023423.fasta','NC_023640.fasta','NC_023719.fasta','NC_027867.fasta']
+    files = ['NC_000852.fasta', 'NC_009899.fasta', 'NC_008724.fasta', 'NC_007346.fasta','NC_014637.fasta','NC_020104.fasta','NC_023423.fasta','NC_023640.fasta','NC_023719.fasta','NC_027867.fasta']
 
     for filename in files:
-        file = 'NC_000852.fasta'
-
-        record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta", "fasta")
-        url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta"
-#         url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/{file}"
+        url = '/Users/fiona.ochs/Documents/Projects/sequenceDNA/organisms/{}'.format(filename)
         record = SeqIO.read(url, "fasta")
-        return calculateProtein(sequence_id, record)
+        upperCaseStrId = sequence_id.upper()
+        seq = Seq(sequence_id)
+        genome = record.seq
 
-def genBankFile():
-    gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/sequence.gb","genbank")
-    for feature in gb_record.features:
-         if feature.type == "CDS":
-            return JsonResponse(str(feature), safe=False)
-    return JsonResponse(str(gb_record), safe=False)
+        foundSeqIdx = genome.find(sequence_id) # 1370
+
+        if foundSeqIdx != -1:
+            endIdx = foundSeqIdx + len(sequence_id)
+            formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
+            organismName = record.name
+            proteinName = seq.translate()
+        else:
+            continue
+
+        data = [{
+        'id': foundSeqIdx,
+        'sequence': str(sequence_id),
+        'proteinName': str(proteinName),
+        'proteinLocation': str(formattedLocation),
+        'organism': str(organismName)
+        }]
+        print(data)
+        return JsonResponse(data, safe=False)
 
 def calculateProtein(sequence_id, record):
         upperCaseStrId = sequence_id.upper()
@@ -83,6 +94,12 @@ def calculateProtein(sequence_id, record):
         print(data)
         return JsonResponse(data, safe=False)
 
+def genBankFile():
+    gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank")
+    for feature in gb_record.features:
+         if feature.type == "CDS":
+            return JsonResponse(str(feature), safe=False)
+    return JsonResponse(str(gb_record), safe=False)
 # ID: NC_000852.5
 # Name: NC_000852.5
 # Description: NC_000852.5 Paramecium bursaria Chlorella virus 1, complete genome
