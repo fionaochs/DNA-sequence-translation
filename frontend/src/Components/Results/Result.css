@@ -1,0 +1,11 @@
+h3 {
+    font-size: 1.5rem;
+
+}
+
+.sequenceResult {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

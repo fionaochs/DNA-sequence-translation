@@ -42,14 +42,21 @@ def ListFileSequences(request, sequence_id):
     print(sequence_id)
     files = ['NC_000852.fasta','NC_007346.fasta','NC_008724.fasta','NC_009899.fasta','NC_014637.fasta','NC_020104.fasta','NC_023423.fasta','NC_023640.fasta','NC_023719.fasta','NC_027867.fasta']
 
-#     def checkFilesForSequence(request, sequence_id):
     for filename in files:
         file = 'NC_000852.fasta'
-#         record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta", "fasta")
+
+        record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta", "fasta")
         url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/NC_000852.fasta"
 #         url = "/Users/fiona.ochs/Documents/Projects/ginkgo2/{file}"
         record = SeqIO.read(url, "fasta")
         return calculateProtein(sequence_id, record)
+
+def genBankFile():
+    gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/ginkgo2/sequence.gb","genbank")
+    for feature in gb_record.features:
+         if feature.type == "CDS":
+            return JsonResponse(str(feature), safe=False)
+    return JsonResponse(str(gb_record), safe=False)
 
 def calculateProtein(sequence_id, record):
         upperCaseStrId = sequence_id.upper()
@@ -63,8 +70,8 @@ def calculateProtein(sequence_id, record):
             organismName = record.name
             proteinName = seq.translate()
         else:
-    #             formattedLocation = 'sequence not found'
-            ListFileSequences(sequence_id)
+    #     sequence not found call fn with next file
+            ListFileSequences(request, sequence_id)
 
         data = [{
         'id': 1,
