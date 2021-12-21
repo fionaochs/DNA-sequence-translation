@@ -32,12 +32,6 @@ def DetailResult(request):
     return JsonResponse(data, safe=False)
 
 def ListFileSequences(request, sequence_id):
-#  read all files in organisms folder
-#     for filename in os.listdir('organisms'):
-#         f = os.path.join('organisms', filename)
-#         if os.path.isfile(f):
-#                 record = SeqIO.read("../{}".format(f), "fasta")
-#     record = SeqIO.read("./NC_000852.5.fasta", "fasta")
 #  'CGCAGGCGCT'
     print(sequence_id)
     files = ['NC_000852.fasta', 'NC_009899.fasta', 'NC_008724.fasta', 'NC_007346.fasta','NC_014637.fasta','NC_020104.fasta','NC_023423.fasta','NC_023640.fasta','NC_023719.fasta','NC_027867.fasta']
@@ -56,16 +50,26 @@ def ListFileSequences(request, sequence_id):
             formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
             organismName = record.name
             proteinName = seq.translate()
+
+#             data = [{
+#                     'id': foundSeqIdx,
+#                     'sequence': str(sequence_id),
+#                     'proteinName': str(proteinName),
+#                     'proteinLocation': str(formattedLocation),
+#                     'organism': str(organismName)
+#                     }]
         else:
             continue
 
+#         if data.length < 1:
+#             data = [{'id':-1, 'sequence':str(sequence_id)}]
         data = [{
-        'id': foundSeqIdx,
-        'sequence': str(sequence_id),
-        'proteinName': str(proteinName),
-        'proteinLocation': str(formattedLocation),
-        'organism': str(organismName)
-        }]
+            'id': foundSeqIdx,
+            'sequence': str(sequence_id),
+            'proteinName': str(proteinName),
+            'proteinLocation': str(formattedLocation),
+            'organism': str(organismName)
+            }]
         print(data)
         return JsonResponse(data, safe=False)
 
@@ -80,17 +84,26 @@ def calculateProtein(sequence_id, record):
             formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
             organismName = record.name
             proteinName = seq.translate()
+
+            data = [{
+                    'id': 1,
+                    'sequence': str(sequence_id),
+                    'proteinName': str(proteinName),
+                    'proteinLocation': str(formattedLocation),
+                    'organism': str(organismName)
+                    }]
         else:
     #     sequence not found call fn with next file
             ListFileSequences(request, sequence_id)
 
-        data = [{
-        'id': 1,
-        'sequence': str(sequence_id),
-        'proteinName': str(proteinName),
-        'proteinLocation': str(formattedLocation),
-        'organism': str(organismName)
-        }]
+        data = [{'id':-1}]
+#         data = [{
+#         'id': 1,
+#         'sequence': str(sequence_id),
+#         'proteinName': str(proteinName),
+#         'proteinLocation': str(formattedLocation),
+#         'organism': str(organismName)
+#         }]
         print(data)
         return JsonResponse(data, safe=False)
 

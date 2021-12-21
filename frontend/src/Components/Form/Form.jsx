@@ -39,8 +39,8 @@ const Form = () => {
 
         return (
             <form>
-                <input className={styles.inputField} type="text" value={proteinName} onChange={handleChange}
-                       placeholder="Protein sequence"/>
+                <input type="text" value={proteinName} onChange={handleChange}
+                       placeholder="Sequence"/>
                 <button onClick={HandleClick}>Find protein</button>
             </form>
         );

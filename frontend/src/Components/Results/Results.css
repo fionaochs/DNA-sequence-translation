@@ -4,13 +4,16 @@
     flex-direction: row;
     align-items: center;
 }
+
 h2 {
     margin-top: 2rem;
     font-size: 2rem;
 }
+
 ul {
     border-radius: 1rem;
     border-style: solid;
     border-color: aliceblue;
     padding-right: 1rem;
+    background-color: #1A8CA9;
 }

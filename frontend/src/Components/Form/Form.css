@@ -18,12 +18,14 @@ button {
     border-color: #23b4d8;
     margin: 1rem;
     padding: 0.25rem 0.3rem 0.25rem 0.3rem;
+    font-weight: bold;
 }
 
 button:hover {
     background-color: rgb(250, 248, 248);
     cursor: pointer;
     color: #1A8CA9;
+    font-weight: bold;
 }
 
 input {
