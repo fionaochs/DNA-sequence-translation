@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from rest_framework import generics
-# from .models import Sequence, Result
-# from .serializers import SequenceSerializer, ResultSerializer
 from django.http import HttpResponse, JsonResponse
 from Bio.Seq import Seq
 from Bio import SeqIO
@@ -41,40 +39,6 @@ def ListFileSequences(request, sequence_id):
     data = [{'id': -1, 'sequence': str(sequence_id)}]
     print(data)
     return JsonResponse(data, safe=False)
-
-# def calculateProtein(sequence_id, record):
-#         upperCaseStrId = sequence_id.upper()
-#         seq = Seq(sequence_id)
-#         genome = record.seq
-#
-#         foundSeqIdx = genome.find(sequence_id) # 1370
-#         if foundSeqIdx != -1:
-#             endIdx = foundSeqIdx + len(sequence_id)
-#             formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
-#             organismName = record.name
-#             proteinName = seq.translate()
-#
-#             data = [{
-#                     'id': 1,
-#                     'sequence': str(sequence_id),
-#                     'proteinName': str(proteinName),
-#                     'proteinLocation': str(formattedLocation),
-#                     'organism': str(organismName)
-#                     }]
-#         else:
-#     #     sequence not found call fn with next file
-#             ListFileSequences(request, sequence_id)
-#
-#         data = [{'id':-1}]
-# #         data = [{
-# #         'id': 1,
-# #         'sequence': str(sequence_id),
-# #         'proteinName': str(proteinName),
-# #         'proteinLocation': str(formattedLocation),
-# #         'organism': str(organismName)
-# #         }]
-#         print(data)
-#         return JsonResponse(data, safe=False)
 
 # def genBankFile(request, sequence_id):
 # #     gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank")
