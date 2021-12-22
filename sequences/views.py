@@ -1,35 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Sequence, Result
-from .serializers import SequenceSerializer, ResultSerializer
+# from .models import Sequence, Result
+# from .serializers import SequenceSerializer, ResultSerializer
 from django.http import HttpResponse, JsonResponse
 from Bio.Seq import Seq
 from Bio import SeqIO
-import os
 
-class ListSequence(generics.ListCreateAPIView):
-    queryset = Sequence.objects.all()
-    serializer_class = SequenceSerializer
-
-
-class DetailSequence(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Sequence.objects.all()
-    serializer_class = SequenceSerializer
-
-def DetailResult(request):
-    seq = Seq("CATGTAGACTAG")
-    translated = seq.translate()
-    transcribed = seq.reverse_complement().transcribe()
-
-    data = [{'id': 1, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1370..1380', 'organism': 'NC_000852'},
-            {'id': 2, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '1353..2773', 'organism': 'NC_000852'},
-            {'id': 3, 'sequence':'CATGTAGACTAG', 'proteinName': 'YP_004678872', 'proteinLocation': '26262..26267', 'organism': 'NC_000852'},
-            ]
-
-# Found  "cgcaggcgct" in protein "YP_004678872.1" in NC_000852.5 in location 1371->1380
-
-    print(data)
-    return JsonResponse(data, safe=False)
 
 def ListFileSequences(request, sequence_id):
 #  'CGCAGGCGCT'
@@ -45,36 +21,26 @@ def ListFileSequences(request, sequence_id):
 
         foundSeqIdx = genome.find(sequence_id) # 1370
 
-#         data = [{'id':-1, 'sequence':str(sequence_id)}]
-
         if foundSeqIdx != -1:
             endIdx = foundSeqIdx + len(sequence_id)
             formattedLocation = str(foundSeqIdx) + '..' + str(endIdx) # 1370..1380
             organismName = record.name
             proteinName = seq.translate()
 
-#             data = [{
-#                     'id': foundSeqIdx,
-#                     'sequence': str(sequence_id),
-#                     'proteinName': str(proteinName),
-#                     'proteinLocation': str(formattedLocation),
-#                     'organism': str(organismName)
-#                     }]
-#             break
+            data = [{
+                    'id': foundSeqIdx,
+                    'sequence': str(sequence_id),
+                    'proteinName': str(proteinName),
+                    'proteinLocation': str(formattedLocation),
+                    'organism': str(organismName)
+                    }]
+            return JsonResponse(data, safe=False)
         else:
             continue
 
-#         if not data:
-#             data = [{'id':-1, 'sequence':str(sequence_id), 'code':404}]
-        data = [{
-            'id': foundSeqIdx,
-            'sequence': str(sequence_id),
-            'proteinName': str(proteinName),
-            'proteinLocation': str(formattedLocation),
-            'organism': str(organismName)
-            }]
-        print(data)
-        return JsonResponse(data, safe=False)
+    data = [{'id': -1, 'sequence': str(sequence_id)}]
+    print(data)
+    return JsonResponse(data, safe=False)
 
 # def calculateProtein(sequence_id, record):
 #         upperCaseStrId = sequence_id.upper()
@@ -110,20 +76,20 @@ def ListFileSequences(request, sequence_id):
 #         print(data)
 #         return JsonResponse(data, safe=False)
 
-def genBankFile(request, sequence_id):
-#     gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank")
-#     for feature in gb_record.features:
-    foundSeqIdx = 1370
-    for rec in SeqIO.parse("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank"):
-        for feature in rec.features:
-             startLocation = '{}'.format(feature.location)[1:].partition(':')[0]
+# def genBankFile(request, sequence_id):
+# #     gb_record = SeqIO.read("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank")
+# #     for feature in gb_record.features:
+#     foundSeqIdx = 1370
+#     for rec in SeqIO.parse("/Users/fiona.ochs/Documents/Projects/sequenceDNA/sequence.gb","genbank"):
+#         for feature in rec.features:
 #              startLocation = '{}'.format(feature.location)[1:].partition(':')[0]
-             if feature.type == "CDS" and int(startLocation) < foundSeqIdx:
-                seq = feature.qualifiers["protein_id"]
-                location = feature.location
-                id = ">{} {} {}".format(rec.id, location, rec.description)
-                print("{} \n {}".format(id, *seq))
-                return JsonResponse("{} \n {} {}".format(id, *seq, startLocation), safe=False)
+# #              startLocation = '{}'.format(feature.location)[1:].partition(':')[0]
+#              if feature.type == "CDS" and int(startLocation) < foundSeqIdx:
+#                 seq = feature.qualifiers["protein_id"]
+#                 location = feature.location
+#                 id = ">{} {} {}".format(rec.id, location, rec.description)
+#                 print("{} \n {}".format(id, *seq))
+#                 return JsonResponse("{} \n {} {}".format(id, *seq, startLocation), safe=False)
 #     return JsonResponse(str(gb_record), safe=False)
 # ID: NC_000852.5
 # Name: NC_000852.5

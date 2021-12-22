@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {FetchResults} from "../../services/requests";
 import {useLocalStorage} from "../../useLocalStorage";
 import styles from './Form.css';
@@ -7,39 +7,21 @@ const Form = () => {
         const [proteinName, setProteinName] = useState('');
         const [results, setResults] = useLocalStorage("results", []);
 
-        // useEffect(() => {
-        //     // fetch(`http://localhost:8000/api/sequence/${proteinName}`, {
-        //     //     // fetch('http://localhost:8000/api/protein', {
-        //     //     'methods': 'GET',
-        //     //     headers: {
-        //     //         'Content-Type': 'application/json'
-        //     //     }
-        //     // })
-        //     //     .then(res => res.json())
-        //     //     .then(json => {
-        //     //         const results = json.map(protein => ({
-        //     //             proteinId: protein.id,
-        //     //             DNASequence: protein.sequence,
-        //     //             proteinName: protein.proteinName,
-        //     //             proteinLocation: protein.proteinLocation,
-        //     //             organism: protein.organism
-        //     //         }));
-        //     //         // const allResults = results.push(newResults)
-        //     //         // setResults(allResults);
-        //     //         setResults(results);
-        //     //     });
-        // }, [proteinName]);
-
         const handleChange = ({target}) => setProteinName(target.value);
 
-        const HandleClick = (e) => {
-            e.preventDefault()
+        const HandleClick = () => {
             FetchResults(proteinName)
-                .then(res => setResults(results.concat(res)))
+                .then(res => {
+                    if (res === undefined) {
+                        setResults([...results, {'id': -1, 'DNASequence': proteinName}])
+                    } else {
+                        setResults(results.concat(res))
+                    }
+                })
         };
 
         return (
-            <form>
+            <form onSubmit={HandleClick}>
                 <input type="text" value={proteinName} onChange={handleChange}
                        placeholder="Sequence"/>
                 <button onClick={HandleClick}>Find protein</button>

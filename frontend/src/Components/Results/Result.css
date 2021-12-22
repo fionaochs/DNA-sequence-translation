@@ -9,3 +9,8 @@ h3 {
     /*flex-direction: column;*/
     /*align-items: center;*/
 }
+
+span {
+    font-weight: bold;
+    color: #1c49a4;
+}

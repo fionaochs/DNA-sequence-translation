@@ -1,9 +1,13 @@
-.results {
+.resultsGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     /*justify-content: center;*/
     /*flex-direction: row;*/
     /*align-items: center;*/
+}
+
+.results {
+
 }
 
 h2 {
@@ -15,6 +19,7 @@ ul {
     border-radius: 1rem;
     border-style: solid;
     border-color: aliceblue;
-    padding-right: 1rem;
+    padding-right: 1.5rem;
     background-color: #1A8CA9;
+    list-style-type: none;
 }
