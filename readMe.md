@@ -16,7 +16,7 @@ Utilized `BioPython` library to parse `.fasta` files that store sequence data, r
 ``npm start``
 
 # To run tests
-``cd frontend`` <br/>
+``cd ./frontend`` <br/>
 ``npm run test``
 
 # Available on
