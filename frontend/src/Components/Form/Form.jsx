@@ -9,7 +9,9 @@ const Form = () => {
 
         const handleChange = ({target}) => setProteinName(target.value);
 
-        const HandleClick = () => {
+        const HandleClick = (e) => {
+            e.preventDefault();
+
             FetchResults(proteinName)
                 .then(res => {
                     if (res === undefined) {
@@ -17,6 +19,7 @@ const Form = () => {
                     } else {
                         setResults(results.concat(res))
                     }
+                    window.location.reload(false);
                 })
         };
 
