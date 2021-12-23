@@ -4,6 +4,7 @@ exports[`Form component renders Form 1`] = `
 <DocumentFragment>
   <form>
     <input
+      label="Sequence"
       placeholder="Sequence"
       type="text"
       value=""

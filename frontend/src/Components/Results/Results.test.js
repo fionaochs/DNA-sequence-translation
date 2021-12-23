@@ -4,14 +4,8 @@ import Results from './Results';
 
 describe('Rating component', () => {
     afterEach(() => cleanup());
-    it('renders Rating', () => {
+    it('renders Results list', () => {
         const {asFragment} = render(<Results/>);
         expect(asFragment()).toMatchSnapshot();
-    });
-
-    it('changes the the list of results', async () => {
-        render(<Results/>);
-        const textInput = await screen.findByText('Results');
-        expect(textInput).toBeInTheDocument();
     });
 });

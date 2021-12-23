@@ -23,7 +23,7 @@ const Form = () => {
         return (
             <form onSubmit={HandleClick}>
                 <input type="text" value={proteinName} onChange={handleChange}
-                       placeholder="Sequence"/>
+                       label="Sequence" placeholder="Sequence"/>
                 <button onClick={HandleClick}>Find protein</button>
             </form>
         );
