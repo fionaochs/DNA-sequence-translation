@@ -49,14 +49,13 @@ def ListFileSequencesGenbank(request, sequence_id):
                 foundSeqIdx = genome.find(upperSeq)
 
                 if foundSeqIdx != -1:
-                    endIdx = foundSeqIdx + len(sequence_id)
-                    formattedLocation = str(foundSeqIdx) + '..' + str(endIdx)
                     startLocation = feature.location.start.position
                     endLocation = feature.location.end.position
                     sequenceLength = foundSeqIdx + len(sequence_id)
+
                     if feature.type == "CDS" and (startLocation < foundSeqIdx and endLocation > sequenceLength):
                         protein_id = feature.qualifiers["protein_id"][0]
-                        location = feature.location
+                        endIdx = foundSeqIdx + len(sequence_id)
                         formattedLocation = str(foundSeqIdx) + '..' + str(endIdx)
 
                         data = [{
