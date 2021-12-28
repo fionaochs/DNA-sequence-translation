@@ -2,10 +2,10 @@ export const FetchResults = (proteinName) => {
     const formattedName = proteinName.toUpperCase();
 
     // production
-    return fetch(`https://ginkgo-back-end.herokuapp.com/api/${proteinName}`)
+    // return fetch(`https://ginkgo-back-end.herokuapp.com/api/${proteinName}`)
 
-        // development
-        // return fetch(`http://localhost:8000/api/${formattedName}`)
+    // development
+    return fetch(`http://localhost:8000/api/gb2/${formattedName}`)
         .then(res => res.json())
         .then(json => json.map(protein => ({
             proteinId: protein.id,

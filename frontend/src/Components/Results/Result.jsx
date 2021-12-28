@@ -15,7 +15,7 @@ const Result = ({DNASequence, proteinName, organism, proteinLocation}) => {
             ) : (
                 <div>
                     <h3 className={DNASequence}>Found DNA sequence <span>'{DNASequence}'</span></h3>
-                    <h3>in amino acid sequence <span>'{proteinName}'</span></h3>
+                    <h3>in protein <span>'{proteinName}'</span></h3>
                     <h3>in organism <span>'{organism}'</span></h3>
                     <h3>at location <span>{proteinLocation}</span></h3>
                 </div>
