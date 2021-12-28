@@ -5,7 +5,7 @@ export const FetchResults = (proteinName) => {
     // return fetch(`https://ginkgo-back-end.herokuapp.com/api/${proteinName}`)
 
     // development
-    return fetch(`http://localhost:8000/api/gb2/${formattedName}`)
+    return fetch(`http://localhost:8000/api/${formattedName}`)
         .then(res => res.json())
         .then(json => json.map(protein => ({
             proteinId: protein.id,
