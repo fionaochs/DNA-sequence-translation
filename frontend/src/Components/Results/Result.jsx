@@ -9,7 +9,7 @@ const Result = ({DNASequence, proteinName, organism, proteinLocation}) => {
         <div className={styles.sequenceResult}>
             {sequenceNotFound ? (
                 <div>
-                    <h3>DNA sequence <span>'{DNASequence}'</span></h3>
+                    <h3>DNA sequence <span>{DNASequence}</span></h3>
                     <h3>did not match any organisms on file</h3>
                 </div>
             ) : (

@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 simplejson = "*"
+celery = "*"
+redis = "*"
 
 [dev-packages]
 
