@@ -5,17 +5,39 @@ from Bio.Seq import Seq
 from Bio import SeqIO
 from tasks import findProtein
 from celery.result import AsyncResult
+from django_celery_results.models import TaskResult
+from django.core import serializers
+
+# def CeleryFileSequencesGenbank(request, sequence_id):
+#   strSeq = str(sequence_id)
+#   task = findProtein.delay(strSeq)
+#   result = AsyncResult(task.id)
+#
+#   print(result.get())
+#   if result:
+#     return JsonResponse(result.get(), safe=False)
+#   else:
+#     return JsonResponse({'message':'something went wrong'})
 
 def CeleryFileSequencesGenbank(request, sequence_id):
   strSeq = str(sequence_id)
   task = findProtein.delay(strSeq)
-  result = AsyncResult(task.id)
 
-  print(result.get())
-  if result:
-    return JsonResponse(result.get(), safe=False)
-  else:
-    return JsonResponse({'message':'something went wrong'})
+  return JsonResponse({'taskId':task.id}, safe=False)
+
+def get_context_data(self, *args, **kwargs):
+     allResults = TaskResult.objects.all()
+     results = [x for x in allResults if x=='result']
+#      data = serializers.serialize('json', results)
+     data = serializers.serialize('json', TaskResult.objects.all())
+     return JsonResponse(data, safe=False)
+#      return context
+
+
+def get_results(self):
+   results = TaskResult.objects.all()
+   return JsonResponse({'results':results}, safe=False)
+#    return JsonResponse(serialize_results(results))
 
 
 def ListFileSequencesGenbank(request, sequence_id):

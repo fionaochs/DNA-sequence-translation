@@ -2,4 +2,4 @@
 
 cd ./backend
 pipenv shell
-celery --app=tasks.app worker
+celery -A sequences_api  worker -l info

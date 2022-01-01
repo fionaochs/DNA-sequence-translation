@@ -1,6 +1,7 @@
 # DNA Sequence Translator
 Converts inputted DNA sequence to the corresponding Amino Acid sequence, then searches through list of genomes for the specific organism and location that the sequence was found at.
 DNA transcription converts DNA sequence to mRNA which is translated to sequence of amino acids, or polypeptide.
+Utilizing GenBank files from 
 
 i.e. <br/>
 Submitting ``'AAGGTCGCCTCGGTGTC'`` will return <br/> 
