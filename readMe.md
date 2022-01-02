@@ -4,7 +4,7 @@ Utilized CDS (coding sequence) regions, to get the translateed protein name from
 
 Organism genomes were obtained using GenBank files from NCBI, <br/> i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
 
-i.e. <br/>
+
 Submitting ``'CGCAGGCGCT'`` will return <br/> 
 in protein ``'YP_004678872.1'`` <br/> 
 in organism ``'NC_000852.5'`` <br/>
