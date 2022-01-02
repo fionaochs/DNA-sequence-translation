@@ -8,6 +8,9 @@ amino acid sequence ``'KVASV'`` <br/>
 in organism ``'NC_009899.1'`` <br/>
 at location ``'331..348'``
 
+dnaSeqDiagram![image](https://user-images.githubusercontent.com/55855284/147863648-57603ee5-3b32-4fdd-8881-d8611aee71ad.png)
+
+
 # Resources
 Utilized `BioPython` library to parse `.fasta` files that store sequence data, representing nucleotide sequences.
 
