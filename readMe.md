@@ -14,8 +14,8 @@ celery asynchronous architecture![image](https://user-images.githubusercontent.c
 
 
 # Resources
-Utilized `BioPython` library and `SeqIO` to parse `genbank` files that store sequence data, representing nucleotide sequences.
-Asynchronous search capabilities with celery and Redis as message broker and result store.
+Utilized `BioPython` library and `SeqIO` to parse `genbank` files that store sequence data, representing nucleotide sequences. <br/> 
+Asynchronous search capabilities with celery and Redis as message broker and result store. <br/> 
 React frontend uses local storage to persist searched sequences and generated results.
 
 # To run
