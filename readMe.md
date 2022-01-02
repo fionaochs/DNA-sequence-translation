@@ -2,7 +2,7 @@
 Inputted DNA sequence is found at a specific location in the corresponding protein, that is then mapped to an organism, by searching through list of genomes for the organism and location that the sequence was found at.
 Utilized CDS (coding sequence) regions, to get the translateed protein name from the DNA sequence.
 
-Organism genomes were obtained using GenBank files from NCBI, i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
+Organism genomes were obtained using GenBank files from NCBI, <br/> i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
 
 i.e. <br/>
 Submitting ``'CGCAGGCGCT'`` will return <br/> 
