@@ -1,16 +1,22 @@
 # DNA Sequence Translator
-Converts inputted DNA sequence to the corresponding Amino Acid sequence, then searches through list of genomes for the specific organism and location that the sequence was found at.
-DNA transcription converts DNA sequence to mRNA which is translated to sequence of amino acids, or polypeptide.
-Utilizing GenBank files from 
+Inputted DNA sequence is found at a specific location in the corresponding protein, that is then mapped to an organism, by searching through list of genomes for the organism and location that the sequence was found at.
+Utilized CDS (coding sequence) regions, to get the translateed protein name from the DNA sequence.
 
-i.e. <br/>
-Submitting ``'AAGGTCGCCTCGGTGTC'`` will return <br/> 
-amino acid sequence ``'KVASV'`` <br/> 
-in organism ``'NC_009899.1'`` <br/>
-at location ``'331..348'``
+Organism genomes were obtained using GenBank files from NCBI, <br/> i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
+
+
+Submitting ``'CGCAGGCGCT'`` will return <br/> 
+in protein ``'YP_004678872.1'`` <br/> 
+in organism ``'NC_000852.5'`` <br/>
+at location ``'1370..1380'``
+
+celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147863657-5c7f9b92-f9de-4f85-9750-940e8ac0dac3.png)
+
 
 # Resources
-Utilized `BioPython` library to parse `.fasta` files that store sequence data, representing nucleotide sequences.
+Utilized `BioPython` library and `SeqIO` to parse `genbank` files that store sequence data, representing nucleotide sequences. <br/> 
+Asynchronous search capabilities with celery and Redis as message broker and result store. <br/> 
+React frontend uses local storage to persist searched sequences and generated results.
 
 # To run
 ``cd ./frontend`` <br/>
