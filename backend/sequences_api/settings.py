@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sequences',
     'rest_framework',
     'corsheaders',
+    'django_celery_results'
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

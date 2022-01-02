@@ -27,8 +27,10 @@ def CeleryFileSequencesGenbank(request, sequence_id):
 
 def get_context_data(self, *args, **kwargs):
      allResults = TaskResult.objects.all()
-     results = [x for x in allResults if x=='result']
+     filtered = TaskResult.objects.filter().values()
+     results = [x for x in allResults if x=='\'result\'']
 #      data = serializers.serialize('json', results)
+#      data = serializers.serialize('json', filtered)
      data = serializers.serialize('json', TaskResult.objects.all())
      return JsonResponse(data, safe=False)
 #      return context

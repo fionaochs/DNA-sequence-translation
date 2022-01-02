@@ -1,0 +1,2 @@
+web: gunicorn sequences_api.wsgi
+worker: celery -A sequences_api  worker -l info

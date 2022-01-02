@@ -7,8 +7,8 @@ const Results = () => {
     const [results, setResults] = useLocalStorage("results", []);
 
     const resultsList = results.map(result =>
-        <ul key={result.id}>
-            <li key={result.id}>
+        <ul key={result.proteinId}>
+            <li key={result.proteinId}>
                 <Result {...result} />
             </li>
         </ul>
