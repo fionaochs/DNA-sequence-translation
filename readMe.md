@@ -1,6 +1,6 @@
 # DNA Sequence Translator
-Inputted DNA sequence is found at a specific location in the corresponding protein, that is then mapped to an organism, by searching through list of genomes for the organism and location that the sequence was found at.
-Utilized CDS (coding sequence) regions, to get the translateed protein name from the DNA sequence.
+Inputted DNA sequence filters through organism genomes from Genbank files for matching sequence in a protein. Once the sequence matches a portion of the corresponding protein CDS (coding sequence) region, the function will return the organism and location the sequence was found at in the protein.
+
 
 Organism genomes were obtained using GenBank files from NCBI, <br/> i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
 
@@ -10,7 +10,7 @@ in protein ``'YP_004678872.1'`` <br/>
 in organism ``'NC_000852.5'`` <br/>
 at location ``'1370..1380'``
 
-celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147863657-5c7f9b92-f9de-4f85-9750-940e8ac0dac3.png)
+Celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147890723-8d00a4bf-256a-4067-8e03-88a639a666f6.png)
 
 
 # Resources
@@ -27,9 +27,14 @@ React frontend uses local storage to persist searched sequences and generated re
 ``npm run test``
 
 # Available on
-``http://localhost:3000/`` <br/> and <br/> ``http://127.0.0.1:8000/api/:DNASequence``
+UI ``http://localhost:3000/`` <br/> and <br/> 
+API ``http://localhost:8000/api/:DNASequence``
+<br/> to get results from Celery TaskResult table <br/> 
+Results ``http://localhost:8000/api/results/tasks``
 
 # Hosted on
-``https://ginkgo-take-home.herokuapp.com`` 
+UI ``https://ginkgo-take-home.herokuapp.com`` 
     <br/> and <br/> 
-``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
+API ``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
+    <br/> to get results from Celery TaskResult table <br/> 
+Results ``https://ginkgo-back-end.herokuapp.com/results/tasks``
