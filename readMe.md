@@ -10,7 +10,7 @@ in protein ``'YP_004678872.1'`` <br/>
 in organism ``'NC_000852.5'`` <br/>
 at location ``'1370..1380'``
 
-Celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147890723-8d00a4bf-256a-4067-8e03-88a639a666f6.png)
+Celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147893245-450e234e-c266-462a-b1b0-279c01837733.png)
 
 
 # Resources
@@ -30,11 +30,11 @@ React frontend uses local storage to persist searched sequences and generated re
 UI ``http://localhost:3000/`` <br/> and <br/> 
 API ``http://localhost:8000/api/:DNASequence``
 <br/> to get results from Celery TaskResult table <br/> 
-Results ``http://localhost:8000/api/results/tasks``
+ ``http://localhost:8000/api/results/tasks``
 
 # Hosted on
 UI ``https://ginkgo-take-home.herokuapp.com`` 
     <br/> and <br/> 
 API ``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
     <br/> to get results from Celery TaskResult table <br/> 
-Results ``https://ginkgo-back-end.herokuapp.com/results/tasks``
+ ``https://ginkgo-back-end.herokuapp.com/results/tasks``
