@@ -18,9 +18,20 @@ Utilized `BioPython` library and `SeqIO` to parse `genbank` files that store seq
 Asynchronous search capabilities with celery and Redis as message broker and result store. <br/> 
 React frontend uses local storage to persist searched sequences and generated results.
 
-# To run
+# To run React app
 ``cd ./frontend`` <br/>
 ``npm start``
+
+# To run celery worker
+``cd ./backend`` <br/>
+``pipenv shell`` <br/>
+``celery -A sequences_api  worker -l info``
+
+# To run Django server
+``cd ./backend`` <br/>
+``pipenv shell`` <br/>
+``pip install -r requirements.txt`` <br/>
+``python manage.py runserver``
 
 # To run tests
 ``cd ./frontend`` <br/>
