@@ -1,6 +1,6 @@
 # DNA Sequence Translator
-Inputted DNA sequence is found at a specific location in the corresponding protein, that is then mapped to an organism, by searching through list of genomes for the organism and location that the sequence was found at.
-Utilized CDS (coding sequence) regions, to get the translateed protein name from the DNA sequence.
+Inputted DNA sequence filters through organism genomes from Genbank files for matching sequence in a protein. Once the sequence matches a portion of the corresponding protein CDS (coding sequence) region, the function will return the organism and location the sequence was found at in the protein.
+
 
 Organism genomes were obtained using GenBank files from NCBI, <br/> i.e. [complete genome for Paramecium bursaria Chlorella virus](https://www.ncbi.nlm.nih.gov/nuccore/NC_000852.5)
 
@@ -10,7 +10,7 @@ in protein ``'YP_004678872.1'`` <br/>
 in organism ``'NC_000852.5'`` <br/>
 at location ``'1370..1380'``
 
-celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147863657-5c7f9b92-f9de-4f85-9750-940e8ac0dac3.png)
+Celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147893245-450e234e-c266-462a-b1b0-279c01837733.png)
 
 
 # Resources
@@ -18,18 +18,34 @@ Utilized `BioPython` library and `SeqIO` to parse `genbank` files that store seq
 Asynchronous search capabilities with celery and Redis as message broker and result store. <br/> 
 React frontend uses local storage to persist searched sequences and generated results.
 
-# To run
+# To run React app
 ``cd ./frontend`` <br/>
 ``npm start``
+
+# To run celery worker
+``cd ./backend`` <br/>
+``pipenv shell`` <br/>
+``celery -A sequences_api  worker -l info``
+
+# To run Django server
+``cd ./backend`` <br/>
+``pipenv shell`` <br/>
+``pip install -r requirements.txt`` <br/>
+``python manage.py runserver``
 
 # To run tests
 ``cd ./frontend`` <br/>
 ``npm run test``
 
 # Available on
-``http://localhost:3000/`` <br/> and <br/> ``http://127.0.0.1:8000/api/:DNASequence``
+UI ``http://localhost:3000/`` <br/> and <br/> 
+API ``http://localhost:8000/api/:DNASequence``
+<br/> to get results from Celery TaskResult table <br/> 
+ ``http://localhost:8000/api/results/tasks``
 
 # Hosted on
-``https://ginkgo-take-home.herokuapp.com`` 
+UI ``https://ginkgo-take-home.herokuapp.com`` 
     <br/> and <br/> 
-``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
+API ``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
+    <br/> to get results from Celery TaskResult table <br/> 
+ ``https://ginkgo-back-end.herokuapp.com/results/tasks``
