@@ -8,8 +8,8 @@ from celery import shared_task
 
 app = celery.Celery('sequences_api')
 
-app.conf.update(BROKER_URL=os.environ['REDIS_URL'],
-                CELERY_RESULT_BACKEND=os.environ['REDIS_URL'])
+app.conf.update(BROKER_URL='redis://:p6595a4738e2f311e89507baec7e0e2137ff1427ebe650054c79471d49f8d3e83@ec2-3-218-1-197.compute-1.amazonaws.com:10719',
+                CELERY_RESULT_BACKEND='redis://:p6595a4738e2f311e89507baec7e0e2137ff1427ebe650054c79471d49f8d3e83@ec2-3-218-1-197.compute-1.amazonaws.com:10719')
 
 @app.task
 def add(x, y):

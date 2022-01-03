@@ -1,4 +1,6 @@
 #!/bin/sh
+#!/usr/bin/python
+#!/usr/local/bin/celery
 
 cd ./backend
 pipenv shell
