@@ -38,8 +38,8 @@ Have instance of React app, server, and celery worker running
 
 # To run tests
 ``cd ./frontend`` <br/>
-``npm run test``
-![image](https://user-images.githubusercontent.com/55855284/148110251-ab88919d-d765-4ffd-a1a5-48a2feab156e.png)
+``npm run test`` <br/>
+<img src="https://user-images.githubusercontent.com/55855284/148110251-ab88919d-d765-4ffd-a1a5-48a2feab156e.png" width="350" height="200" />
 
 # Available on
 UI ``http://localhost:3000/`` <br/> and <br/> 
