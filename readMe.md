@@ -46,10 +46,3 @@ UI ``http://localhost:3000/`` <br/> and <br/>
 API ``http://localhost:8000/api/:DNASequence``
 <br/> to get results from Celery TaskResult table <br/> 
  ``http://localhost:8000/api/results/tasks``
-
-# Hosted on
-UI ``https://ginkgo-take-home.herokuapp.com`` 
-    <br/> and <br/> 
-API ``https://ginkgo-back-end.herokuapp.com/api/:DNASequence``
-    <br/> to get results from Celery TaskResult table <br/> 
- ``https://ginkgo-back-end.herokuapp.com/results/tasks``
