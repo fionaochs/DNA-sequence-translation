@@ -10,6 +10,8 @@ in protein ``'YP_004678872.1'`` <br/>
 in organism ``'NC_000852.5'`` <br/>
 at location ``'1370..1380'``
 
+![image](https://user-images.githubusercontent.com/55855284/148847834-a8e479e4-ac90-4d03-835d-bc0a6ae17f34.png)
+
 Celery asynchronous architecture![image](https://user-images.githubusercontent.com/55855284/147893245-450e234e-c266-462a-b1b0-279c01837733.png)
 
 
